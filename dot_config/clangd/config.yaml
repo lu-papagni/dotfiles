@@ -1,0 +1,24 @@
+CompileFlags:
+  Add: [-Wall, -Wextra]
+---
+InlayHints:
+  Enabled: Yes
+  BlockEnd: No
+  Designators: No
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  TypeNameLimit: 24
+---
+If:
+  PathMatch: [.*\.c, .*\.h]
+CompileFlags:
+  Remove: [-std]
+  Add: [-xc, -std=c11]
+  Compiler: gcc
+---
+If:
+  PathMatch: [.*\.cpp, .*\.hpp]
+CompileFlags:
+  Remove: [-std]
+  Add: [-xc++, -std=c++17]
+  Compiler: g++
