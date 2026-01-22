@@ -1,10 +1,5 @@
 {{- /* ft: bash */ -}}
 
-{{- $is_wsl := false }}
-{{- if eq .chezmoi.os "linux" }}
-{{- $is_wsl = (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-{{- end -}}
-
 # powerlevel10k instant prompt
 # NOTE: keep near top of profile
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]];
@@ -12,7 +7,7 @@ then
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-{{- if $is_wsl }}
+{{- if .wslDistro }}
 
 # Shell integration fixes on Windows
 precmd() {
@@ -52,7 +47,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FZF_DEFAULT_OPTS='--multi'
 export TMUX_TMPDIR=/tmp
 
-{{- if $is_wsl }}
+{{- if .wslDistro }}
 
 export BROWSER=~/.local/bin/wsl-browser
 
@@ -69,7 +64,7 @@ alias opencode=~/.local/bin/opencode-wrapper
 alias tree='tree -C'
 alias vim='nvim'; hash -d vimrc=~/.config/nvim
 
-{{- if $is_wsl }}
+{{- if .wslDistro }}
 
 alias explorer="/mnt/c/Windows/explorer.exe"
 alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
