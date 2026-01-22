@@ -1,0 +1,9 @@
+{{- /* ft: yaml */ -}}
+
+{{- $is_wsl := false }}
+{{- if eq .chezmoi.os "linux" }}
+{{- $is_wsl = (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{- end -}}
+
+data:
+  wslDistro: {{ $is_wsl }}
