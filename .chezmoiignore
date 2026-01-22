@@ -1,0 +1,3 @@
+wsl/
+.config/nvim/after/
+!.config/nvim/after/ftplugin
