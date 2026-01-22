@@ -1,0 +1,9 @@
+{{- /* ft: gitignore */ -}}
+
+wsl/
+.config/nvim/after/
+!.config/nvim/after/ftplugin
+
+{{ if not .wslDistro }}
+.local/bin/wsl-browser
+{{ end }}
