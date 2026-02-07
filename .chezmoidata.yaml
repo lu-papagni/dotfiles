@@ -1,0 +1,19 @@
+packages:
+  unix:
+    common:
+      - bat
+      - btop
+      - fzf
+      - git
+      - git-delta
+      - neovim
+      - tmux
+      - zsh
+    gui:
+      - kitty
+
+tools:
+  shell: zsh
+  editor: nvim
+  node: '24.13.0'
+
