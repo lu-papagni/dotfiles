@@ -1,3 +1,7 @@
+{{- /* ft: gitconfig */ -}}
+
+{{ $useDelta := lookPath "delta" -}}
+
 [user]
 	email = papagniluca4@gmail.com
 	name = lu-papagni
@@ -9,8 +13,12 @@
 	conflictstyle = diff3
 [core]
 	editor = nvim --cmd 'let g:git_editor=1'
+  {{ if $useDelta -}}
 	pager = delta
+  {{ end }}
 [interactive]
+  {{ if $useDelta -}}
 	diffFilter = delta --color-only
+  {{ end }}
 [init]
 	defaultBranch = main
