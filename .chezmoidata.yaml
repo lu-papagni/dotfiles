@@ -18,3 +18,8 @@ tools:
   editor: nvim
   node: '24.13.0'
 
+pathEntries:
+  - '$HOME/.local/bin'
+  - '$HOME/.nodejs/bin'
+  - '$HOME/.bun/bin'
+  - '$HOME/.cache/.bun/bin'
