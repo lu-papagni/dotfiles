@@ -40,7 +40,7 @@ bindkey -M vicmd r my-vi-replace-char
 {{- end }}
 
 # Enviroment
-export EDITOR='nvim'
+export EDITOR={{ .tools.editor }}
 export BAT_THEME='base16'
 export MANROFFOPT='-c'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
