@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chsh -s {{ printf "/usr/bin/%s" .tools.shell | quote }}
