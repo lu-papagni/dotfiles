@@ -1,0 +1,8 @@
+#!/bin/sh
+
+{{ $fstab := joinPath .chezmoi.sourceDir "wsl/fstab" }}
+{{ $config := joinPath .chezmoi.sourceDir "wsl/wsl.conf" }}
+
+echo "Configuring WSL settings..."
+sudo cp {{ $fstab | quote }} /etc/fstab
+sudo cp {{ $config | quote }} /etc/wsl.conf
