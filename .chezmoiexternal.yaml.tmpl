@@ -1,0 +1,36 @@
+{{- /* ft: yaml */ -}}
+
+{{- $os := .chezmoi.os -}}
+{{- $arch := .chezmoi.arch -}}
+{{- $archVariant := $arch -}}
+{{- if eq $arch "amd64" }}{{ $archVariant = "x64" }}{{ end -}}
+
+{{ if eq $os "linux" -}}
+
+'.local/bin/git-credential-oauth':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "hickford/git-credential-oauth" (printf "git-credential-oauth_*_%s_%s.tar.gz" $os $arch) | quote }}
+  executable: true
+  path: 'git-credential-oauth'
+  refreshPeriod: '360h'
+
+'.nodejs':
+  type: 'archive'
+  url: {{ printf "https://nodejs.org/dist/v%s/node-v%s-%s-%s.tar.gz" .tools.node .tools.node $os $archVariant | quote }}
+  exact: true
+  stripComponents: 1
+  refreshPeriod: '720h'
+
+{{- end }}
+
+{{ if ne $os "windows" -}}
+
+'.bun/bin/bun':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "oven-sh/bun" (printf "bun-%s-%s.zip" $os $archVariant) }}
+  path: 'bun'
+  executable: true
+  stripComponents: 1
+  refreshPeriod: '168h'
+
+{{- end }}
