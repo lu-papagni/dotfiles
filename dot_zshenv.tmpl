@@ -1,8 +1,6 @@
 {{- /* ft: bash */ -}}
 
-{{ if not (env "XDG_CONFIG_HOME") }}
-export XDG_CONFIG_HOME="$HOME/.config"
-{{ end }}
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 {{- $paths := .pathEntries -}}
 
