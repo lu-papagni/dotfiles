@@ -1,9 +1,8 @@
 {{- /* ft: yaml */ -}}
 
-{{- $is_wsl := false }}
-{{- if eq .chezmoi.os "linux" }}
-{{- $is_wsl = (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-{{- end -}}
+{{- $wsl := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{- $headless := or $wsl (not env "DISPLAY") }}
 
 data:
-  wslDistro: {{ $is_wsl }}
+  wslDistro: {{ $wsl }}
+  headless: {{ $headless }}
