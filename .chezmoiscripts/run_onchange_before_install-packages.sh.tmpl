@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -- {{ range .packages.unix.common }}{{ . | quote }} {{ end }}
+
+{{ if not .headless -}}
+set -- "$@" {{ range .packages.unix.gui }}{{ . | quote }} {{ end }}
+{{ end -}}
+
+{{ if eq .chezmoi.os "linux" }}
+
+{{ $distro := .chezmoi.osRelease.id }}
+
+{{ if eq $distro "fedora" }}
+sudo dnf upgrade -y
+sudo dnf install -y "$@"
+
+{{ else if eq $distro "debian" "ubuntu" }}
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install -y "$@"
+
+{{ else if eq $distro "arch" }}
+sudo pacman -Syu --needed --noconfirm "$@"
+
+{{ else if eq $distro "opensuse-tumbleweed" }}
+sudo zypper dup
+sudo zypper in -y "$@"
+{{ end -}}
+
+{{ end }}
