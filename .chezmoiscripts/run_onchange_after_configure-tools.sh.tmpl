@@ -1,3 +1,5 @@
 #!/bin/sh
 
-chsh -s {{ printf "/usr/bin/%s" .tools.shell | quote }}
+NEW_SHELL={{ printf "/usr/bin/%s" .tools.shell | quote }}
+echo "Setting default shell to $NEW_SHELL"
+chsh -s "$NEW_SHELL"

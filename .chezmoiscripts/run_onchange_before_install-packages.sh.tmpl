@@ -6,6 +6,8 @@ set -- {{ range .packages.unix.common }}{{ . | quote }} {{ end }}
 set -- "$@" {{ range .packages.unix.gui }}{{ . | quote }} {{ end }}
 {{ end -}}
 
+echo "Found $# system packages to install."
+
 {{ if eq .chezmoi.os "linux" }}
 
 {{ $distro := .chezmoi.osRelease.id }}
