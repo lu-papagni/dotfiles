@@ -1,0 +1,11 @@
+{{- /* ft: bash */ -}}
+
+{{ if not (env "XDG_CONFIG_HOME") }}
+export XDG_CONFIG_HOME="$HOME/.config"
+{{ end }}
+
+{{- $paths := .pathEntries -}}
+
+{{- if $paths }}
+export PATH="{{ join ":" $paths }}:$PATH"
+{{ end }}
