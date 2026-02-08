@@ -3,12 +3,15 @@ packages:
     common:
       - bat
       - btop
+      - gcc
       - fzf
       - git
       - git-delta
       - neovim
+      - ripgrep
       - tar
       - tmux
+      - tree
       - zsh
     gui:
       - kitty
