@@ -12,6 +12,15 @@
   path: 'opencode'
   refreshPeriod: '168h'
 
+'.local/share/nvim/tree-sitter':
+  type: 'file'
+  url: {{ gitHubLatestReleaseAssetURL "tree-sitter/tree-sitter" (printf "tree-sitter-%s-%s.gz" $os $archVariant) | quote }}
+  executable: true
+  filter:
+    command: 'gunzip'
+    args: ['-c']
+  refreshPeriod: '168h'
+
 {{ if eq $os "linux" -}}
 
 '.local/bin/git-credential-oauth':
