@@ -2,19 +2,27 @@
 
 {{- $os := .chezmoi.os -}}
 {{- $arch := .chezmoi.arch -}}
-{{- $archVariant := $arch -}}
-{{- if eq $arch "amd64" }}{{ $archVariant = "x64" }}{{ end -}}
+{{- $x64 := eq $arch "amd64" -}}
+{{- /* Almost every project classifies 64-bit binaries as x64 */ -}}
+{{- if $x64 }}{{ $arch = "x64" }}{{ end -}}
 
 '.local/bin/opencode':
   type: 'archive-file'
-  url: {{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" $os $archVariant) | quote }}
+  url: {{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" $os $arch) | quote }}
   executable: true
   path: 'opencode'
   refreshPeriod: '168h'
 
+'.local/bin/lazygit':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "jesseduffield/lazygit" (printf "lazygit_*_%s_%s.tar.gz" $os (ternary "x86_64" $arch $x64)) | quote }}
+  executable: true
+  path: 'lazygit'
+  refreshPeriod: '168h'
+
 '.local/share/nvim/tree-sitter':
   type: 'file'
-  url: {{ gitHubLatestReleaseAssetURL "tree-sitter/tree-sitter" (printf "tree-sitter-%s-%s.gz" $os $archVariant) | quote }}
+  url: {{ gitHubLatestReleaseAssetURL "tree-sitter/tree-sitter" (printf "tree-sitter-%s-%s.gz" $os $arch) | quote }}
   executable: true
   filter:
     command: 'gunzip'
@@ -25,14 +33,14 @@
 
 '.local/bin/git-credential-oauth':
   type: 'archive-file'
-  url: {{ gitHubLatestReleaseAssetURL "hickford/git-credential-oauth" (printf "git-credential-oauth_*_%s_%s.tar.gz" $os $arch) | quote }}
+  url: {{ gitHubLatestReleaseAssetURL "hickford/git-credential-oauth" (printf "git-credential-oauth_*_%s_%s.tar.gz" $os (ternary "amd64" $arch $x64)) | quote }}
   executable: true
   path: 'git-credential-oauth'
   refreshPeriod: '360h'
 
 '.nodejs':
   type: 'archive'
-  url: {{ printf "https://nodejs.org/dist/v%s/node-v%s-%s-%s.tar.gz" .tools.node .tools.node $os $archVariant | quote }}
+  url: {{ printf "https://nodejs.org/dist/v%s/node-v%s-%s-%s.tar.gz" .tools.node .tools.node $os $arch | quote }}
   exact: true
   stripComponents: 1
   refreshPeriod: '720h'
@@ -43,7 +51,7 @@
 
 '.bun/bin/bun':
   type: 'archive-file'
-  url: {{ gitHubLatestReleaseAssetURL "oven-sh/bun" (printf "bun-%s-%s.zip" $os $archVariant) }}
+  url: {{ gitHubLatestReleaseAssetURL "oven-sh/bun" (printf "bun-%s-%s.zip" $os $arch) }}
   path: 'bun'
   executable: true
   stripComponents: 1
