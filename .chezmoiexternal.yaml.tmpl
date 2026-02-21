@@ -6,6 +6,12 @@
 {{- /* Almost every project classifies 64-bit binaries as x64 */ -}}
 {{- if $x64 }}{{ $arch = "x64" }}{{ end -}}
 
+'.docker/cli-plugins/docker-compose':
+  type: 'file'
+  url: {{ gitHubLatestReleaseAssetURL "docker/compose" (printf "docker-compose-%s-%s" $os (ternary "x86_64" $arch $x64)) | quote }}
+  executable: true
+  refreshPeriod: '720h'
+
 '.local/bin/opencode':
   type: 'archive-file'
   url: {{ gitHubLatestReleaseAssetURL "anomalyco/opencode" (printf "opencode-%s-%s.tar.gz" $os $arch) | quote }}
