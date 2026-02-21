@@ -6,6 +6,13 @@
 {{- /* Almost every project classifies 64-bit binaries as x64 */ -}}
 {{- if $x64 }}{{ $arch = "x64" }}{{ end -}}
 
+'.config/nvim':
+  type: 'git-repo'
+  url: 'https://github.com/lu-papagni/nvim-config.git'
+  '.config/nvim':
+    clone:
+      args: ['--branch=experimental']
+
 '.docker/cli-plugins/docker-compose':
   type: 'file'
   url: {{ gitHubLatestReleaseAssetURL "docker/compose" (printf "docker-compose-%s-%s" $os (ternary "x86_64" $arch $x64)) | quote }}
