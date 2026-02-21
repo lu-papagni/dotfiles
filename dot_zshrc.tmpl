@@ -108,17 +108,18 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 -p -A --color=always $realpat
 zstyle ':fzf-tab:complete:cd:*' fzf-min-height 10
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
-# Autocomplete
+# Options
 HISTSIZE=1000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
-setopt hist_ignore_dups
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_find_no_dups
-setopt hist_ignore_space
-setopt share_history
+setopt CD_SILENT
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt SHARE_HISTORY
 
 # Keybindings
 toggle-foreground-job() {
