@@ -62,6 +62,7 @@ alias ll='ls -la'
 alias ls='ls -p --color=auto'
 alias tree='tree -C'
 alias vim='nvim'; hash -d vimrc=~/.config/nvim
+hash -d chezmoi={{ .chezmoi.sourceDir | quote }}
 
 {{- if .wslDistro }}
 
