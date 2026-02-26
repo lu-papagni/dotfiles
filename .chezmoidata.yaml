@@ -32,7 +32,7 @@ wsl:
     - spec: 'tmpfs'
       file: '/tmp'
       vfstype: tmpfs
-      mntops: ['noexec','defaults','nodev','nosuid','noatime','size=256m']
+      mntops: ['defaults','nodev','nosuid','noatime','size=256m']
       freq: 0
       passno: 0
 
