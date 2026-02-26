@@ -1,8 +1,14 @@
 #!/bin/sh
 
-{{ $fstab := joinPath .chezmoi.sourceDir "wsl/fstab" }}
-{{ $config := joinPath .chezmoi.sourceDir "wsl/wsl.conf" }}
+echo "Configuring WSL settings. Restart WSL for changes to take effect."
 
-echo "Configuring WSL settings..."
-sudo cp {{ $fstab | quote }} /etc/fstab
-sudo cp {{ $config | quote }} /etc/wsl.conf
+sudo tee /etc/wsl.conf <<EOF
+{{- .wsl.config | toIni }}
+EOF
+
+sudo tee /etc/fstab <<EOF
+{{ range .wsl.fstab -}}
+{{ $mntops := .mntops | join "," }}
+{{- list .spec .file .vfstype $mntops .freq .passno | join "\t" }}
+{{ end }}
+EOF

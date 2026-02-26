@@ -21,6 +21,21 @@ tools:
   editor: nvim
   node: '24.13.0'
 
+wsl:
+  config:
+    boot:
+      systemd: true
+    interop:
+      appendWindowsPath: false
+  # Reference at https://man7.org/linux/man-pages/man5/fstab.5.html
+  fstab:
+    - spec: 'tmpfs'
+      file: '/tmp'
+      vfstype: tmpfs
+      mntops: ['noexec','defaults','nodev','nosuid','noatime','size=256m']
+      freq: 0
+      passno: 0
+
 pathEntries:
   - '$HOME/.local/bin'
   - '$HOME/.bin'
