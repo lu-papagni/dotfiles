@@ -132,6 +132,8 @@ zle -N toggle-foreground-job
 bindkey -v
 bindkey '^k' history-search-backward
 bindkey '^j' history-search-forward
+bindkey -r "${terminfo[kcuu1]}"
+bindkey -r "${terminfo[kcud1]}"
 bindkey '^ ' autosuggest-accept
 bindkey '^x^e' edit-command-line
 bindkey '^_' undo
