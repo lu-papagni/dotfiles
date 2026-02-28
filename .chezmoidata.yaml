@@ -18,6 +18,7 @@ packages:
       - kitty
   npm:
     - opencode-ai
+    - tree-sitter-cli
 
 tools:
   shell: zsh
