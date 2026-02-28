@@ -3,10 +3,11 @@ packages:
     common:
       - bat
       - btop
-      - gcc
       - fzf
+      - gcc
       - git
       - git-delta
+      - lazygit
       - neovim
       - ripgrep
       - tar

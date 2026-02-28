@@ -21,13 +21,6 @@
   executable: true
   refreshPeriod: '720h'
 
-'.local/bin/lazygit':
-  type: 'archive-file'
-  url: {{ gitHubLatestReleaseAssetURL "jesseduffield/lazygit" (printf "lazygit_*_%s_%s.tar.gz" $os (ternary "x86_64" $arch $x64)) | quote }}
-  executable: true
-  path: 'lazygit'
-  refreshPeriod: '168h'
-
 '.local/share/nvim/tree-sitter':
   type: 'file'
   url: {{ gitHubLatestReleaseAssetURL "tree-sitter/tree-sitter" (printf "tree-sitter-%s-%s.gz" $os $arch) | quote }}
