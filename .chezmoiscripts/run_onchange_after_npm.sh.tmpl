@@ -1,0 +1,10 @@
+{{- /* ft: sh */ -}}
+#!/bin/sh
+
+echo "bun: found {{ len .packages.npm }} npm packages to install."
+
+if [ -x ~/.bun/bin/bun ]; then
+  ~/.bun/bin/bun add -g {{ range .packages.npm }}{{ . | quote }} {{ end }}
+else
+  echo "Skipping installation: bun not found."
+fi

@@ -15,6 +15,8 @@ packages:
       - zsh
     gui:
       - kitty
+  npm:
+    - opencode-ai
 
 tools:
   shell: zsh
