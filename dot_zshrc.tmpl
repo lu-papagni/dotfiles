@@ -89,18 +89,26 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 # Extensions
 zinit depth"1" light-mode for \
-	romkatv/powerlevel10k \
+	romkatv/powerlevel10k
+
+zinit depth"1" light-mode for \
 	OMZP::sudo \
-	zsh-users/zsh-autosuggestions \
-	Aloxaf/fzf-tab \
-	zsh-users/zsh-completions \
+	atinit"zicompinit; zicdreplay" \
+		zsh-users/zsh-completions \
+	Aloxaf/fzf-tab
+
+zinit wait lucid light-mode for \
+	atload"_zsh_autosuggest_start" \
+		zsh-users/zsh-autosuggestions \
 	zdharma-continuum/fast-syntax-highlighting
 
+zinit wait lucid light-mode as"null" \
+	atload'eval "$(fzf --zsh)"; eval "$(fnm env --use-on-cd --shell zsh)"' \
+	for zdharma-continuum/null
+
 autoload -Uz edit-command-line && zle -N edit-command-line
-autoload -Uz compinit && compinit
 
 # Suggestions
-zinit cdreplay -p																				# Abilita cache
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'	# Abilita case insensitive
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # Suggerimenti colorati
 zstyle ':completion:*' menu no
@@ -138,12 +146,6 @@ bindkey '^ ' autosuggest-accept
 bindkey '^x^e' edit-command-line
 bindkey '^_' undo
 bindkey '^z' toggle-foreground-job
-
-# Initialize fzf
-command -v 'fzf' > /dev/null && eval "$(fzf --zsh)"
-
-# Initialize fnm (Node.js version manager)
-command -v 'fnm' > /dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
 
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
