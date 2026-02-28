@@ -19,7 +19,6 @@ packages:
 tools:
   shell: zsh
   editor: nvim
-  node: '24.13.0'
 
 wsl:
   config:
@@ -39,6 +38,5 @@ wsl:
 pathEntries:
   - '$HOME/.local/bin'
   - '$HOME/.bin'
-  - '$HOME/.nodejs/bin'
   - '$HOME/.bun/bin'
   - '$HOME/.cache/.bun/bin'

@@ -5,6 +5,8 @@
 {{- $x64 := eq $arch "amd64" -}}
 {{- /* Almost every project classifies 64-bit binaries as x64 */ -}}
 {{- if $x64 }}{{ $arch = "x64" }}{{ end -}}
+{{- /* fnm uses "macos" where chezmoi uses "darwin" */ -}}
+{{- $fnmos := ternary "macos" $os (eq $os "darwin") -}}
 
 '.config/nvim':
   type: 'git-repo'
@@ -52,16 +54,16 @@
   path: 'git-credential-oauth'
   refreshPeriod: '360h'
 
-'.nodejs':
-  type: 'archive'
-  url: {{ printf "https://nodejs.org/dist/v%s/node-v%s-%s-%s.tar.gz" .tools.node .tools.node $os $arch | quote }}
-  exact: true
-  stripComponents: 1
-  refreshPeriod: '720h'
-
 {{- end }}
 
 {{ if ne $os "windows" -}}
+
+'.local/bin/fnm':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "Schniz/fnm" (printf "fnm-%s.zip" $fnmos) | quote }}
+  executable: true
+  path: 'fnm'
+  refreshPeriod: '168h'
 
 '.bun/bin/bun':
   type: 'archive-file'

@@ -142,5 +142,8 @@ bindkey '^z' toggle-foreground-job
 # Initialize fzf
 command -v 'fzf' > /dev/null && eval "$(fzf --zsh)"
 
+# Initialize fnm (Node.js version manager)
+command -v 'fnm' > /dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
+
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
