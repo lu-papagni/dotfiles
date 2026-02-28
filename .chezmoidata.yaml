@@ -41,6 +41,5 @@ wsl:
 
 pathEntries:
   - '$HOME/.local/bin'
-  - '$HOME/.bin'
   - '$HOME/.bun/bin'
   - '$HOME/.cache/.bun/bin'
