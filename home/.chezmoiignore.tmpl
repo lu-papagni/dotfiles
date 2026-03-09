@@ -3,7 +3,7 @@
 README.md
 {{ if not (eq .chezmoi.os "windows") -}}
 {{- /* Linux, MacOS */ -}}
-.chezmoiscripts/windows
+.chezmoiscripts/windows/**
 .wslconfig
 Documents/
 AppData/
@@ -16,7 +16,7 @@ AppData/
 {{- else }}
 {{- /* Only Windows */ -}}
 *
-!.chezmoiscripts/windows
+.chezmoiscripts/unix/**
 !Documents/
 !AppData/
 !.wslconfig
