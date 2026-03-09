@@ -1,0 +1,67 @@
+[class^=buttonsInner_]:not(:hover)>[role=button]:not(
+  :has(>svg>[d^="M4 14a2 2 0 1 0 0-4 2 2"]), [class*=dangerous_]
+) {
+  display: none;
+}
+
+/* chat input: move buttons to second row */
+:where(.visual-refresh) .channelTextArea_f75fb0 .scrollableContainer__74017 {
+    overflow-y: hidden;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .scrollableContainer__74017 > div {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0px;
+    justify-content: flex-end;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .buttons__74017 {
+    padding-right: 15px;
+    flex-shrink: 3;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017 {
+    overflow-y: scroll;
+    max-height: calc( var(--custom-channel-textarea-text-area-max-height) - 55px);
+    order: -1;
+    border-bottom-width: 1px !important;
+    border-bottom-color: var(--border-faint);
+    border-bottom-style: solid;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .characterCount__795fb {
+    translate: 0 -55px;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .attachWrapper__0923f {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-left: 15px;
+}
+/* COPIED FROM DISCORD CSS */
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017::-webkit-scrollbar {
+    width: 12px;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017::-webkit-scrollbar-track {
+    border-radius: 0 8px 8px 0
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017::-webkit-scrollbar-thumb,
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017::-webkit-scrollbar-track {
+    background-clip: padding-box;
+    border: 4px solid transparent;
+}
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--primary-800-hsl) /.6);
+    border-radius: 8px;
+}
+/* END: COPIED FROM DISCORD CSS */
+
+/* padding of message input text field to match message width */
+:where(.visual-refresh) .channelTextArea_f75fb0 .textArea__74017 > div > * {
+    margin-left: 58.5px;
+    margin-right: 19px;
+}
+
+/* Barra dei comandi */
+
+body {
+  --top-bar-button-position: off;
+  --top-bar-height: 35px;
+}
