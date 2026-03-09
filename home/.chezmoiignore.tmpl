@@ -1,11 +1,21 @@
 {{- /* ft: gitignore */ -}}
 
 README.md
-wsl/
-.config/nvim/after/
-!.config/nvim/after/ftplugin
+{{ if not (eq .chezmoi.os "windows") -}}
+{{- /* Linux, MacOS */ -}}
+.chezmoiscripts/windows
+Documents/
+AppData/
 
-{{ if not .wslDistro }}
+{{- if not .wslDistro }}
 .local/bin/wsl-browser
 .chezmoiscripts/wsl.sh
+{{ end -}}
+
+{{- else }}
+{{- /* Only Windows */ -}}
+*
+!.chezmoiscripts/windows
+!Documents/
+!AppData/
 {{ end }}
