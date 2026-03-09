@@ -46,4 +46,12 @@
   executable: true
   stripComponents: 1
 
-{{- end }}
+{{- end -}}
+
+{{ if eq $os "windows" -}}
+
+'Documents/PowerShell/Modules':
+  type: 'git-repo'
+  url: 'https://github.com/lu-papagni/ps-modules.git'
+
+{{ end }}
