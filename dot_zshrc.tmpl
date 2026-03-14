@@ -135,7 +135,12 @@ toggle-foreground-job() {
 	fg 2>/dev/null
 	[[ $? -eq 0 ]] && zle accept-line
 }
+open-lazygit() {
+  lazygit
+  zle accept-line
+}
 zle -N toggle-foreground-job
+zle -N open-lazygit
 
 bindkey -v
 bindkey '^k' history-search-backward
@@ -144,6 +149,7 @@ bindkey -r "${terminfo[kcuu1]}"
 bindkey -r "${terminfo[kcud1]}"
 bindkey '^ ' autosuggest-accept
 bindkey '^x^e' edit-command-line
+bindkey '^x^l' open-lazygit
 bindkey '^_' undo
 bindkey '^z' toggle-foreground-job
 
