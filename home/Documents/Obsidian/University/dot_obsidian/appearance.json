@@ -1,0 +1,9 @@
+{
+  "cssTheme": "Shimmering Focus",
+  "theme": "moonstone",
+  "accentColor": "",
+  "enabledCssSnippets": [
+    "wider",
+    "image_caption"
+  ]
+}
