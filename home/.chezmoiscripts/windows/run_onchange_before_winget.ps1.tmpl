@@ -1,60 +1,14 @@
-{{- /*
-  Installs winget packages from .chezmoidata.yaml.
-  Runs before any winget-managed scripts.
-*/ -}}
-$ErrorActionPreference = "Stop"
+Register-PSRepository -Default
+Install-Module -Name Microsoft.WinGet.Client -Scope CurrentUser
 
-function Assert-Command {
-  param(
-    [Parameter(Mandatory = $true)]
-    [string]$Name
-  )
+$packages = @( {{ .packages.windows | quoteList | join ", " }} )
 
-  if (-not (Get-Command $Name -ErrorAction SilentlyContinue)) {
-    throw "Required command not found: $Name"
-  }
+if (-not (Assert-WinGetPackageManager)) {
+  Repair-WinGetPackageManager -Latest
 }
 
-function Install-Packages {
-  param(
-    [Parameter(Mandatory = $true)]
-    [string]$Source,
-    [Parameter(Mandatory = $true)]
-    [string[]]$List
-  )
+Get-WinGetPackage | Where-Object IsUpdateAvailable | Update-WinGetPackage -Mode Silent
 
-  foreach ($packageId in $List) {
-    if ([string]::IsNullOrWhiteSpace($packageId)) {
-      continue
-    }
-
-    Write-Host "Installing $packageId via $Source..."
-    winget install --id $packageId --source $Source --exact --accept-package-agreements --accept-source-agreements
-    if ($LASTEXITCODE -ne 0) {
-      throw "winget failed for $packageId from $Source with exit code $LASTEXITCODE"
-    }
-  }
-}
-
-try {
-  Assert-Command -Name "winget"
-
-  $packagesWinget = @(
-{{- range .packages.windows.winget }}
-    {{ . | quote }}
-{{- end }}
-  )
-  $packagesMSStore = @(
-{{- range .packages.windows.msstore }}
-    {{ . | quote }}
-{{- end }}
-  )
-
-  Install-Packages -Source winget -List $packagesWinget
-  Install-Packages -Source msstore -List $packagesMSStore
-
-}
-catch {
-  Write-Error $_
-  exit 1
+foreach ($pkg in $packages) {
+  Install-WinGetPackage -Id $pkg -Mode Silent -Scope SystemOrUnknown
 }

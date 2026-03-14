@@ -17,28 +17,26 @@ packages:
     gui:
       - kitty
   windows:
-    winget:
-      - Brave.Brave
-      - Discord.Discord
-      - KDE.KDEConnect
-      - KDE.Okular
-      - MartiCliment.UniGetUI
-      - Microsoft.PowerShell
-      - Microsoft.PowerToys
-      - Microsoft.WindowsTerminal
-      - ONLYOFFICE.DesktopEditors
-      - Obsidian.Obsidian
-      - REALiX.HWiNFO
-      - Rclone.Rclone
-      - RevoUninstaller.RevoUninstaller
-      - VideoLAN.VLC
-      - WinFsp.WinFsp
-      - WinSCP.WinSCP
-      - WsSolInfor.CrystalDiskInfo
-      - jtroo.kanata_gui
-      - nomacs.nomacs
-    msstore:
-      - 9NKSQGP7F2NH  # WhatsApp
+    - Brave.Brave
+    - Discord.Discord
+    - KDE.KDEConnect
+    - KDE.Okular
+    - MartiCliment.UniGetUI
+    - Microsoft.PowerShell
+    - Microsoft.PowerToys
+    - Microsoft.WindowsTerminal
+    - ONLYOFFICE.DesktopEditors
+    - Obsidian.Obsidian
+    - REALiX.HWiNFO
+    - Rclone.Rclone
+    - RevoUninstaller.RevoUninstaller
+    - VideoLAN.VLC
+    - WinFsp.WinFsp
+    - WinSCP.WinSCP
+    - WsSolInfor.CrystalDiskInfo
+    - jtroo.kanata_gui
+    - nomacs.nomacs
+    - '9NKSQGP7F2NH'  # WhatsApp
   npm:
     - opencode-ai
     - tree-sitter-cli
