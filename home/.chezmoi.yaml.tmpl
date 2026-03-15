@@ -1,11 +1,12 @@
 {{- /* ft: yaml */ -}}
 
-{{- $wsl := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-{{- $headless := or $wsl (not env "DISPLAY") -}}
+{{- $linux := (eq .chezmoi.os "linux") -}}
+{{- $wsl := and $linux (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{- $tty := and $linux (not (env "DISPLAY"))  -}}
 
 github:
   refreshPeriod: '24h'
 
 data:
   wslDistro: {{ $wsl }}
-  headless: {{ $headless }}
+  headless: {{ or $tty $wsl }}
