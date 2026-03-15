@@ -51,7 +51,8 @@
 {{ if eq $os "windows" -}}
 
 'Documents/PowerShell/Modules':
-  type: 'git-repo'
-  url: 'https://github.com/lu-papagni/ps-modules.git'
+  type: 'archive'
+  url: 'https://github.com/lu-papagni/ps-modules/archive/refs/heads/main.zip'
+  stripComponents: 1
 
 {{ end }}
