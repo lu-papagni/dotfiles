@@ -7,7 +7,7 @@
 github:
   refreshPeriod: '24h'
 
-{{- $koofrPassword := promptString "Enter Koofr password" -}}
+{{ $koofrPassword := promptString "Enter Koofr password" -}}
 
 data:
   wslDistro: {{ $wsl }}
