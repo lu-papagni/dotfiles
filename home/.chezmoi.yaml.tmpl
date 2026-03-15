@@ -7,6 +7,10 @@
 github:
   refreshPeriod: '24h'
 
+{{- $koofrPassword := promptString "Enter Koofr password" -}}
+
 data:
   wslDistro: {{ $wsl }}
   headless: {{ or $tty $wsl }}
+  rcloneSecret:
+    koofr: {{ $koofrPassword | quote }}
