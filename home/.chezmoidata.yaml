@@ -33,7 +33,7 @@ packages:
     - VideoLAN.VLC
     - WinFsp.WinFsp
     - WinSCP.WinSCP
-    - WsSolInfor.CrystalDiskInfo
+    - CrystalDewWorld.CrystalDiskInfo
     - jtroo.kanata_gui
     - nomacs.nomacs
     - '9NKSQGP7F2NH'  # WhatsApp
