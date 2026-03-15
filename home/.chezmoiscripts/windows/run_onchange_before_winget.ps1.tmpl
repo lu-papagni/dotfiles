@@ -1,4 +1,4 @@
-Register-PSRepository -Default
+Register-PSRepository -Default -ErrorAction SilentlyContinue
 Install-Module -Name Microsoft.WinGet.Client -Scope CurrentUser
 
 $packages = @( {{ .packages.windows | quoteList | join ", " }} )
@@ -10,5 +10,9 @@ if (-not (Assert-WinGetPackageManager)) {
 Get-WinGetPackage | Where-Object IsUpdateAvailable | Update-WinGetPackage -Mode Silent
 
 foreach ($pkg in $packages) {
-  Install-WinGetPackage -Id $pkg -Mode Silent -Scope SystemOrUnknown
+  try {
+    Install-WinGetPackage -Id $pkg -Mode Silent
+  } catch {
+    Write-Error "Failed to install package: $pkg"
+  }
 }
