@@ -8,17 +8,6 @@
 {{- /* fnm uses "macos" where chezmoi uses "darwin" */ -}}
 {{- $fnmos := ternary "macos" $os (eq $os "darwin") -}}
 
-'.config/nvim':
-  type: 'git-repo'
-  url: 'https://github.com/lu-papagni/nvim-config.git'
-  refreshPeriod: '24h'
-
-'.docker/cli-plugins/docker-compose':
-  type: 'file'
-  url: {{ gitHubLatestReleaseAssetURL "docker/compose" (printf "docker-compose-%s-%s" $os (ternary "x86_64" $arch $x64)) | quote }}
-  executable: true
-  refreshPeriod: '720h'
-
 {{ if eq $os "linux" -}}
 
 '.local/bin/git-credential-oauth':
@@ -31,6 +20,17 @@
 {{- end }}
 
 {{ if ne $os "windows" -}}
+
+'.config/nvim':
+  type: 'git-repo'
+  url: 'https://github.com/lu-papagni/nvim-config.git'
+  refreshPeriod: '24h'
+
+'.docker/cli-plugins/docker-compose':
+  type: 'file'
+  url: {{ gitHubLatestReleaseAssetURL "docker/compose" (printf "docker-compose-%s-%s" $os (ternary "x86_64" $arch $x64)) | quote }}
+  executable: true
+  refreshPeriod: '720h'
 
 '.local/bin/fnm':
   type: 'archive-file'
