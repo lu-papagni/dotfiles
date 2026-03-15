@@ -8,6 +8,14 @@ function Get-CommandSource {
 $startup = [Environment]::GetFolderPath("Startup")
 $wsh = New-Object -ComObject WScript.Shell
 
+# HACK: refresh PATH reading directly from the registry
+# This is needed because run_* scripts inherit chezmoi's PATH,
+# which does not have the new entries from winget installations.
+$env:PATH = @(
+  [Environment]::GetEnvironmentVariable("PATH", "Machine")
+  [Environment]::GetEnvironmentVariable("PATH", "User")
+) -join ";"
+
 $shortcuts = @(
   @{
     Name = "kanata"
