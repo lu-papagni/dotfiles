@@ -1,0 +1,7 @@
+.theme-dark .image-wrapper {
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.theme-dark .image-wrapper img {
+  mix-blend-mode: overlay;
+}
