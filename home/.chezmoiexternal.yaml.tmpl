@@ -2,9 +2,25 @@
 
 {{- $os := .chezmoi.os -}}
 {{- $arch := .chezmoi.arch -}}
+
 {{- $x64 := eq $arch "amd64" -}}
 {{- /* Almost every project classifies 64-bit binaries as x64 */ -}}
 {{- if $x64 }}{{ $arch = "x64" }}{{ end -}}
+
+{{- $compiler := "" -}}
+{{- if eq $os "linux" -}}
+{{- $compiler = ternary "musl" "gnu" (eq .chezmoi.osRelease.id "alpine" "void") -}}
+{{- else if eq $os "windows" -}}
+{{- $compiler = "msvc" -}}
+{{- end -}}
+
+{{- $vendor := "unknown" }}
+{{- if eq $os "windows" -}}
+{{- $vendor = "pc" }}
+{{- else if eq $os "darwin" -}}
+{{- $vendor = "apple" }}
+{{- end -}}
+
 {{- /* fnm uses "macos" where chezmoi uses "darwin" */ -}}
 {{- $fnmos := ternary "macos" $os (eq $os "darwin") -}}
 
@@ -37,6 +53,24 @@
   url: {{ gitHubLatestReleaseAssetURL "Schniz/fnm" (printf "fnm-%s.zip" $fnmos) | quote }}
   executable: true
   path: 'fnm'
+  refreshPeriod: '168h'
+
+{{- $uvAsset := list (ternary "x86_64" $arch $x64) $vendor $os $compiler | compact | join "-" | printf "uv-%s.tar.gz" }}
+
+'.local/bin/uv':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "astral-sh/uv" $uvAsset | quote }}
+  path: 'uv'
+  executable: true
+  stripComponents: 1
+  refreshPeriod: '168h'
+
+'.local/bin/uvx':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "astral-sh/uv" $uvAsset | quote }}
+  path: 'uvx'
+  executable: true
+  stripComponents: 1
   refreshPeriod: '168h'
 
 '.bun/bin/bun':
