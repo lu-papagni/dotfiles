@@ -80,6 +80,14 @@
   executable: true
   stripComponents: 1
 
+{{- $zellijAsset := list (ternary "x86_64" $arch $x64) $vendor $os | compact | join "-" | printf "zellij-%s*.tar.gz" }}
+
+'.local/bin/zellij':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "zellij-org/zellij" $zellijAsset | quote }}
+  path: 'zellij'
+  executable: true
+
 {{- end -}}
 
 {{ if eq $os "windows" -}}
