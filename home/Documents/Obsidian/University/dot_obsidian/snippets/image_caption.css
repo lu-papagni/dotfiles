@@ -1,0 +1,28 @@
+.image-captions-figure {
+  --image-caption-padding: 4px;
+  --bg-color: var(--accent-dark);
+  --border-color: var(--accent-normal);
+  --text-color: var(--accent-neon);
+
+  padding: var(--image-caption-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color) !important;
+
+  & img {
+    --image-captions-radius: calc(var(--image-radius) - 2px);
+    display: block;
+  }
+
+  & .image-captions-caption {
+    display: block;
+    margin: 0;
+    background-color: var(--bg-color) !important;
+    line-height: 1.5em;
+    border-radius: 0 0 var(--image-radius) var(--image-radius) !important;
+    color: var(--text-color);
+    padding-block: 5px 0;
+    font-style: italic;
+  }
+}

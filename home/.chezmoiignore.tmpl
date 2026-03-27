@@ -1,0 +1,23 @@
+{{- /* ft: gitignore */ -}}
+
+README.md
+{{ if not (eq .chezmoi.os "windows") -}}
+{{- /* Linux, MacOS */ -}}
+.chezmoiscripts/windows/**
+.wslconfig
+Documents/
+AppData/
+
+{{- if not .wslDistro }}
+.local/bin/wsl-browser
+.chezmoiscripts/unix/wsl.sh
+{{ end -}}
+
+{{- else }}
+{{- /* Only Windows */ -}}
+*
+.chezmoiscripts/unix/**
+!Documents/
+!AppData/
+!.wslconfig
+{{ end }}

@@ -1,0 +1,16 @@
+{{- /* ft: yaml */ -}}
+
+{{- $linux := (eq .chezmoi.os "linux") -}}
+{{- $wsl := and $linux (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{- $tty := and $linux (not (env "DISPLAY"))  -}}
+
+github:
+  refreshPeriod: '24h'
+
+{{ $koofrPassword := promptString "Enter Koofr password" -}}
+
+data:
+  wslDistro: {{ $wsl }}
+  headless: {{ or $tty $wsl }}
+  rcloneSecret:
+    koofr: {{ $koofrPassword | quote }}

@@ -1,0 +1,20 @@
+{
+  "shimmering-focus@@normal-tab-bar": true,
+  "shimmering-focus@@hide-vault-switcher-and-settings": false,
+  "shimmering-focus@@hide-inline-title-when-more-than-one-tab": false,
+  "shimmering-focus@@show-sidebar-header-buttons": true,
+  "shimmering-focus@@show-new-tab-button": true,
+  "shimmering-focus@@show-tab-list-button": false,
+  "shimmering-focus@@show-sidebar-toggle-buttons": true,
+  "shimmering-focus@@show-close-buttons": true,
+  "shimmering-focus@@normal-header-bar": false,
+  "shimmering-focus@@notices-at-bottom-right": true,
+  "shimmering-focus@@hide-signature-icon": true,
+  "shimmering-focus@@hide-harper-status-bar": false,
+  "shimmering-focus@@hide-pandoc-reference-list-status-bar": false,
+  "shimmering-focus@@hide-languagetool-status-bar": false,
+  "shimmering-focus@@hide-pane-relief-focus-lock-status-bar": false,
+  "shimmering-focus@@hide-backlinks-status-bar": true,
+  "shimmering-focus@@hide-properties-in-statusbar": false,
+  "shimmering-focus@@vim-cursor-blink-rate": 1200
+}

@@ -1,0 +1,100 @@
+{{- /* ft: yaml */ -}}
+
+{{- $os := .chezmoi.os -}}
+{{- $arch := .chezmoi.arch -}}
+
+{{- $x64 := eq $arch "amd64" -}}
+{{- /* Almost every project classifies 64-bit binaries as x64 */ -}}
+{{- if $x64 }}{{ $arch = "x64" }}{{ end -}}
+
+{{- $compiler := "" -}}
+{{- if eq $os "linux" -}}
+{{- $compiler = ternary "musl" "gnu" (eq .chezmoi.osRelease.id "alpine" "void") -}}
+{{- else if eq $os "windows" -}}
+{{- $compiler = "msvc" -}}
+{{- end -}}
+
+{{- $vendor := "unknown" }}
+{{- if eq $os "windows" -}}
+{{- $vendor = "pc" }}
+{{- else if eq $os "darwin" -}}
+{{- $vendor = "apple" }}
+{{- end -}}
+
+{{- /* fnm uses "macos" where chezmoi uses "darwin" */ -}}
+{{- $fnmos := ternary "macos" $os (eq $os "darwin") -}}
+
+{{ if eq $os "linux" -}}
+
+'.local/bin/git-credential-oauth':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "hickford/git-credential-oauth" (printf "git-credential-oauth_*_%s_%s.tar.gz" $os (ternary "amd64" $arch $x64)) | quote }}
+  executable: true
+  path: 'git-credential-oauth'
+  refreshPeriod: '360h'
+
+{{- end }}
+
+{{ if ne $os "windows" -}}
+
+'.config/nvim':
+  type: 'git-repo'
+  url: 'https://github.com/lu-papagni/nvim-config.git'
+  refreshPeriod: '24h'
+
+'.docker/cli-plugins/docker-compose':
+  type: 'file'
+  url: {{ gitHubLatestReleaseAssetURL "docker/compose" (printf "docker-compose-%s-%s" $os (ternary "x86_64" $arch $x64)) | quote }}
+  executable: true
+  refreshPeriod: '720h'
+
+'.local/bin/fnm':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "Schniz/fnm" (printf "fnm-%s.zip" $fnmos) | quote }}
+  executable: true
+  path: 'fnm'
+  refreshPeriod: '168h'
+
+{{- $uvAsset := list (ternary "x86_64" $arch $x64) $vendor $os $compiler | compact | join "-" | printf "uv-%s.tar.gz" }}
+
+'.local/bin/uv':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "astral-sh/uv" $uvAsset | quote }}
+  path: 'uv'
+  executable: true
+  stripComponents: 1
+  refreshPeriod: '168h'
+
+'.local/bin/uvx':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "astral-sh/uv" $uvAsset | quote }}
+  path: 'uvx'
+  executable: true
+  stripComponents: 1
+  refreshPeriod: '168h'
+
+'.bun/bin/bun':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "oven-sh/bun" (printf "bun-%s-%s.zip" $os $arch) }}
+  path: 'bun'
+  executable: true
+  stripComponents: 1
+
+{{- $zellijAsset := list (ternary "x86_64" $arch $x64) $vendor $os | compact | join "-" | printf "zellij-%s*.tar.gz" }}
+
+'.local/bin/zellij':
+  type: 'archive-file'
+  url: {{ gitHubLatestReleaseAssetURL "zellij-org/zellij" $zellijAsset | quote }}
+  path: 'zellij'
+  executable: true
+
+{{- end -}}
+
+{{ if eq $os "windows" -}}
+
+'Documents/PowerShell/Modules':
+  type: 'archive'
+  url: 'https://github.com/lu-papagni/ps-modules/archive/refs/heads/main.zip'
+  stripComponents: 1
+
+{{ end }}

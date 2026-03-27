@@ -1,0 +1,11 @@
+{{- /* ft: toml */ -}}
+
+vsync = false
+{{ if eq .chezmoi.os "windows" }}wsl = true{{ end }}
+[font]
+normal = [
+  "JetBrainsMono NF",
+  "Cascadia Code"
+]
+size = 11.0
+

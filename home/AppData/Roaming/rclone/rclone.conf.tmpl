@@ -1,0 +1,12 @@
+[global]
+vfs_cache_mode = full
+vfs_cache_max_size = 1G
+vfs_cache_max_age = 24h
+vfs_read_ahead = 128M
+
+[koofr]
+type = koofr
+provider = koofr
+user = papagniluca4@gmail.com
+password = {{ .rcloneSecret.koofr }}
+
