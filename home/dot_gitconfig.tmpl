@@ -22,3 +22,5 @@
   defaultBranch = main
 [url "git@github.com"]
   insteadOf = gh
+[alias]
+  to-ssh = !git remote set-url origin $(git remote get-url origin | sed 's|https://github.com/|git@github.com:|')
