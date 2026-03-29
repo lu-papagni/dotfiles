@@ -145,13 +145,15 @@ zle -N open-lazygit
 bindkey -v
 bindkey '^k' history-search-backward
 bindkey '^j' history-search-forward
-bindkey -r "${terminfo[kcuu1]}"
-bindkey -r "${terminfo[kcud1]}"
 bindkey '^ ' autosuggest-accept
 bindkey '^x^e' edit-command-line
 bindkey '^x^l' open-lazygit
 bindkey '^_' undo
 bindkey '^z' toggle-foreground-job
+for keymap in emacs viins vicmd main; do
+  bindkey -r -M $keymap '^[[A'
+  bindkey -r -M $keymap '^[[B'
+done
 
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
