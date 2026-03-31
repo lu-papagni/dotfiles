@@ -1,0 +1,24 @@
+{{- /* ft: sh */ -}}
+
+set -e
+
+PRIVATE_KEY=~/.ssh/id_ed25519
+PUBLIC_KEY="${PRIVATE_KEY}.pub"
+URL_HANDLER={{ eq .chezmoi.os "linux" | ternary "xdg-open" "open" | quote }}
+
+[ -f "$PRIVATE_KEY" ] && exit
+
+ssh-keygen \
+  -t ed25519 \
+  -C {{ .email | quote }} \
+  -f "$PRIVATE_KEY" \
+  -N ''
+
+if [ -f "$PUBLIC_KEY" ]; then
+  echo 'Add the generated public key to GitHub:'
+  cat "$PUBLIC_KEY"
+  sh -c "$URL_HANDLER https://github.com/settings/keys"
+else
+  echo 'Error during SSH public key generation.'
+fi
+

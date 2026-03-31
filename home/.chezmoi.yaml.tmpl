@@ -10,6 +10,7 @@ github:
 {{ $koofrPassword := promptString "Enter Koofr password" -}}
 
 data:
+  email: 'papagniluca4@gmail.com'
   wslDistro: {{ $wsl }}
   headless: {{ or $tty $wsl }}
   rcloneSecret:
