@@ -37,6 +37,14 @@
 
 {{ if ne $os "windows" -}}
 
+{{- /* TODO: update if query maintainment resumes */ -}}
+'.local/share/nvim/site':
+  type: 'archive'
+  url: 'https://github.com/nvim-treesitter/nvim-treesitter/archive/refs/heads/main.zip'
+  exact: true
+  stripComponents: 2
+  include: ['*/runtime/queries/**']
+
 '.config/nvim':
   type: 'git-repo'
   url: 'https://github.com/lu-papagni/nvim-config.git'
