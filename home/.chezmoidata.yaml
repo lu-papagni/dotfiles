@@ -3,6 +3,7 @@ packages:
     common:
       - bat
       - btop
+      - curl
       - fzf
       - gcc
       - git
