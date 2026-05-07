@@ -9,6 +9,5 @@
 Quick install:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply 'lu-papagni'
-
+sh -c "$(wget -qO- get.chezmoi.io/lb)" -- init --apply 'lu-papagni'
 ```
