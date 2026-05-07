@@ -27,7 +27,7 @@ sudo pacman -Syu --needed --noconfirm "$@"
 
 {{- else if eq $distro "opensuse-tumbleweed" }}
 sudo zypper --non-interactive dist-upgrade
-sudo zypper --non-interactive install --force-resolution "$@"
+sudo zypper --non-interactive install --recommends "$@"
 {{ end }}
 
 {{- end }}
