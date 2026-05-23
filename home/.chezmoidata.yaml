@@ -46,6 +46,26 @@ tools:
   shell: zsh
   editor: nvim
 
+treesitter:
+  'tree-sitter-grammars/tree-sitter-markdown':  # Repo slug
+    tree-sitter-markdown: markdown  # Folder -> parser name mapping
+    tree-sitter-markdown-inline: markdown_inline
+  'tree-sitter/tree-sitter-typescript':
+    tsx: tsx
+    typescript: typescript
+  'tree-sitter/tree-sitter-bash':
+    .: bash
+  'ngalaiko/tree-sitter-go-template':
+    .: gotmpl
+  'tree-sitter/tree-sitter-javascript':
+    .: javascript
+  'tree-sitter/tree-sitter-python':
+    .: python
+  'tree-sitter-grammars/tree-sitter-yaml':
+    .: yaml
+  'tree-sitter-grammars/tree-sitter-lua':
+    .: lua
+
 wsl:
   config:
     boot:

@@ -1,0 +1,43 @@
+{{- /* ft: bash */ -}}
+
+#!/bin/sh
+
+{{ $parser_dir := ".local/share/nvim/site/parser" -}}
+{{- $home := .chezmoi.homeDir -}}
+
+build() {
+  target="$1"
+  out_parser="$2"
+
+  cd "$target"
+  echo "Generating $out_parser..."
+  bun x tree-sitter-cli generate 2> /dev/null
+  echo "Compiling $out_parser..."
+  bun x tree-sitter-cli build --output "{{ joinPath $home $parser_dir }}/$out_parser.so" 2> /dev/null
+}
+
+export PATH="$HOME/.bun/bin:$PATH"
+command -v bun &> /dev/null || exit 1
+cd "$(mktemp -d)"
+
+{{- range $repo, $parsers := .treesitter -}}
+  {{- $to_install := $parsers -}}
+  {{- range $target, $name := $parsers -}}
+    {{- $installed := printf "%s.*" (joinPath $parser_dir $name) | glob -}} 
+    {{ if $installed -}}
+      {{- $_ := unset $to_install $target -}}
+    {{- end }}
+  {{- end -}}
+  {{- $clonedRepo := splitList "/" $repo | last -}}
+
+  {{- if len $to_install }}
+    echo "Cloning parser at {{ $repo }}..."
+    git clone --depth 1 'https://github.com/{{ $repo }}.git' && { \
+      {{ range $target, $name := $to_install -}}
+        build "{{ $clonedRepo }}/{{ $target }}" {{ $name }} &
+      {{ end }}
+    }
+  {{- end }}
+{{- end }}
+
+wait
