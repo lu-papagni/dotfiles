@@ -20,23 +20,36 @@ export PATH="$HOME/.bun/bin:$PATH"
 command -v bun &> /dev/null || exit 1
 cd "$(mktemp -d)"
 
-{{- range $repo, $parsers := .treesitter -}}
-  {{- $to_install := $parsers -}}
-  {{- range $target, $name := $parsers -}}
-    {{- $installed := printf "%s.*" (joinPath $parser_dir $name) | glob -}} 
-    {{ if $installed -}}
-      {{- $_ := unset $to_install $target -}}
-    {{- end }}
+{{- range $repo, $cfg := .treesitter -}}
+  {{- $branch := "" -}}
+  {{- if hasKey $cfg "branch" -}}
+    {{- $branch = (get $cfg "branch") -}}
   {{- end -}}
-  {{- $clonedRepo := splitList "/" $repo | last -}}
+  {{- $parsers := $cfg.build -}}
 
-  {{- if len $to_install }}
+  {{- if len $parsers -}}
+    {{- $to_install := $parsers -}}
+    {{- range $target, $name := $parsers -}}
+      {{- $installed := printf "%s.*" (joinPath $parser_dir $name) | glob -}}
+      {{ if $installed -}}
+        {{- $_ := unset $to_install $target -}}
+      {{- end }}
+    {{- end -}}
+    {{- $clonedRepo := splitList "/" $repo | last -}}
+
+    {{- if len $to_install }}
+      {{- if $branch }}
+    echo "Cloning parser at {{ $repo }} ({{ $branch }})..."
+    git clone --depth 1 --single-branch --branch '{{ $branch }}' 'https://github.com/{{ $repo }}.git' && { \
+      {{- else }}
     echo "Cloning parser at {{ $repo }}..."
     git clone --depth 1 'https://github.com/{{ $repo }}.git' && { \
-      {{ range $target, $name := $to_install -}}
-        build "{{ $clonedRepo }}/{{ $target }}" {{ $name }} &
-      {{ end }}
-    }
+      {{- end }}
+        {{ range $target, $name := $to_install -}}
+          build "{{ $clonedRepo }}/{{ $target }}" "{{ $name }}" &
+        {{ end }}
+      }
+    {{- end }}
   {{- end }}
 {{- end }}
 
