@@ -26,6 +26,7 @@ packages:
     - MartiCliment.UniGetUI
     - Microsoft.PowerShell
     - Microsoft.PowerToys
+    - Microsoft.VisualStudioCode
     - Microsoft.WindowsTerminal
     - ONLYOFFICE.DesktopEditors
     - Obsidian.Obsidian
