@@ -18,6 +18,7 @@ packages:
     gui:
       - kitty
   windows:
+    - AntibodySoftware.WizTree
     - Brave.Brave
     - Discord.Discord
     - KDE.KDEConnect
