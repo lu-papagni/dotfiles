@@ -42,7 +42,6 @@ packages:
     - '9NKSQGP7F2NH'  # WhatsApp
   npm:
     - opencode-ai
-    - tree-sitter-cli
 
 tools:
   shell: zsh
