@@ -2,3 +2,9 @@ git:
   pagers:
     - pager: delta --dark --paging=never
     - pager: delta --dark --paging=never --side-by-side
+customCommands:
+  - context: "files"
+    description: "AI commit message (opencode)"
+    loadingText: "Asking opencode…"
+    subprocess: true
+    command: "opencode-commit"

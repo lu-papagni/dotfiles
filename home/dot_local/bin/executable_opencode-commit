@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+diff=$(git diff --cached)
+
+if [ -z "$diff" ]; then
+  echo "No staged changes." >&2
+  exit 1
+fi
+
+# opencode run has no stdin; embed diff directly in the prompt
+msg=$(opencode run --model github-copilot/gpt-5-mini \
+  "Output ONLY a single conventional commit message (type(scope): summary).
+No explanation, no markdown, no quotes. Git diff:
+
+$diff")
+
+# Strip any accidental surrounding quotes or whitespace
+msg=$(printf '%s' "$msg" | sed 's/^[[:space:]"'\'']*//;s/[[:space:]"'\'']*$//')
+
+git commit -m "$msg"
