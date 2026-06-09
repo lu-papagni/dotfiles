@@ -21,6 +21,7 @@ packages:
     - AntibodySoftware.WizTree
     - Brave.Brave
     - Discord.Discord
+    - Git.MinGit
     - KDE.KDEConnect
     - KDE.Okular
     - MartiCliment.UniGetUI
