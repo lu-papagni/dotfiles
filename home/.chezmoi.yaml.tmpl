@@ -9,6 +9,10 @@ github:
 
 {{ $koofrPassword := promptString "Enter Koofr password" -}}
 
+cd:
+  command: "pwsh"
+  args: ["-NoLogo"]
+
 data:
   email: 'papagniluca4@gmail.com'
   wslDistro: {{ $wsl }}
