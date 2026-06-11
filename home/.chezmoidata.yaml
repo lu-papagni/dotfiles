@@ -20,11 +20,10 @@ packages:
   windows:
     - AntibodySoftware.WizTree
     - Brave.Brave
-    - Discord.Discord
     - Git.MinGit
     - KDE.KDEConnect
     - KDE.Okular
-    - MartiCliment.UniGetUI
+    - Devolutions.UniGetUI
     - Microsoft.PowerShell
     - Microsoft.PowerToys
     - Microsoft.VisualStudioCode
