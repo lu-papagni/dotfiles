@@ -1,0 +1,4 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $dest := fromJson .chezmoi.stdin -}}
+{{- $managed := includeTemplate "powertoys.json" | fromJson -}}
+{{- mergeOverwrite $dest $managed | toJson }}
