@@ -9,10 +9,7 @@ if (-not (Assert-WinGetPackageManager)) {
 
 Get-WinGetPackage | Where-Object IsUpdateAvailable | Update-WinGetPackage -Mode Silent
 
-foreach ($pkg in $packages) {
-  try {
-    Install-WinGetPackage -Id $pkg -Mode Silent
-  } catch {
-    Write-Error "Failed to install package: $pkg"
-  }
+$installed = Get-WinGetPackage | Select-Object -ExpandProperty Id
+$packages | Where-Object { $_ -notin $installed } | ForEach-Object {
+  Install-WinGetPackage -Id $_ -MatchOption Equals -Mode Silent
 }
