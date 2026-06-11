@@ -6,5 +6,5 @@ customCommands:
   - context: "files"
     description: "AI commit message (opencode)"
     loadingText: "Asking opencode…"
-    subprocess: true
     command: "opencode-commit"
+    output: terminal
