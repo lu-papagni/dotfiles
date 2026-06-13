@@ -4,6 +4,19 @@
 {{- $wsl := and $linux (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 {{- $tty := and $linux (not (env "DISPLAY"))  -}}
 
+{{- $chassis := "unknown" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+  {{- if contains "MacBook" (output "system_profiler" "SPHardwareDataType") -}}
+    {{- $chassis = "laptop" -}}
+  {{- else -}}
+    {{- $chassis = "desktop" -}}
+  {{- end -}}
+{{- else if and $linux (not $wsl) -}}
+  {{- $chassis = (output "hostnamectl" "--json=short" | mustFromJson).Chassis -}}
+{{- else if eq .chezmoi.os "windows" -}}
+  {{- $chassis = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "if ((Get-CimInstance -Class Win32_Battery | Measure-Object).Count -gt 0) { Write-Output 'laptop' } else { Write-Output 'desktop' }") | trim -}}
+{{- end -}}
+
 github:
   refreshPeriod: '24h'
 
@@ -19,3 +32,4 @@ data:
   headless: {{ or $tty $wsl }}
   rcloneSecret:
     koofr: {{ $koofrPassword | quote }}
+  chassisType: {{ $chassis }}
