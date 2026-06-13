@@ -1,3 +1,5 @@
+{{- $isDesktop := eq .chassisType "desktop" -}}
+
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
@@ -103,7 +105,7 @@
     "firstWindowPreference": "persistedWindowLayout",
     "focusFollowMouse": true,
     "initialCols": 130,
-    "initialRows": 35,
+    "initialRows": {{ $isDesktop | ternary 35 30 }},
     "keybindings": 
     [
         {
@@ -165,7 +167,7 @@
             "font": 
             {
                 "face": "IosevkaTerm Nerd Font, JetBrainsMono Nerd Font, Cascadia Code, Consolas",
-                "size": 14
+                "size": {{ $isDesktop | ternary 14 13 }}
             },
             "historySize": 2000,
             "intenseTextStyle": "bold",
