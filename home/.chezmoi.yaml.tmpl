@@ -20,7 +20,7 @@
 github:
   refreshPeriod: '24h'
 
-{{ $koofrPassword := promptString "Enter Koofr password" -}}
+{{ $koofrPassword := promptStringOnce .rcloneSecret "koofr" "Enter Koofr password" -}}
 
 cd:
   command: "pwsh"
