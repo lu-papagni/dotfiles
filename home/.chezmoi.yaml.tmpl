@@ -22,9 +22,11 @@ github:
 
 {{ $koofrPassword := promptStringOnce .rcloneSecret "koofr" "Enter Koofr password" -}}
 
+{{- if eq .chezmoi.os "windows" -}}
 cd:
   command: "pwsh"
   args: ["-NoLogo"]
+{{- end }}
 
 data:
   email: 'papagniluca4@gmail.com'
