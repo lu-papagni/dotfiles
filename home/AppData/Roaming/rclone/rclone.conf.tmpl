@@ -8,5 +8,5 @@ vfs_read_ahead = 128M
 type = koofr
 provider = koofr
 user = papagniluca4@gmail.com
-password = {{ .rcloneSecret.koofr }}
+password = {{ output "rclone" "obscure" .rcloneSecret.koofr | trim }}
 
