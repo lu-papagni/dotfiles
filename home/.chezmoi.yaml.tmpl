@@ -20,13 +20,14 @@
 github:
   refreshPeriod: '24h'
 
-{{ $koofrPassword := promptStringOnce .rcloneSecret "koofr" "Enter Koofr password" -}}
+{{- $koofrPassword := promptStringOnce .rcloneSecret "koofr" "Enter Koofr password" }}
 
-{{- if eq .chezmoi.os "windows" -}}
+{{ if eq .chezmoi.os "windows" -}}
 cd:
   command: "pwsh"
   args: ["-NoLogo"]
-{{- end }}
+
+{{ end -}}
 
 data:
   email: 'papagniluca4@gmail.com'
