@@ -1,0 +1,10 @@
+{
+  "Scoop": true,
+  "Npm": true,
+  "Cargo": true,
+  "vcpkg": true,
+  ".NET Tool": true,
+  "PowerShell7": false,
+  "Chocolatey": true,
+  "Pip": true
+}
