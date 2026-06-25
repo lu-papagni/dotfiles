@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -z $1 ]; then
+	echo 'Buffer parameter required.'
+	exit 1
+fi
+
+nvim --headless --server "$NVIM" --remote-expr "execute('buffer $1 | checktime')"
