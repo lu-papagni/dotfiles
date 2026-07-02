@@ -4,7 +4,7 @@
 echo "bun: found {{ len .packages.npm }} npm packages to install."
 
 if [ -x ~/.bun/bin/bun ]; then
-  ~/.bun/bin/bun add -g {{ range .packages.npm }}{{ . | quote }} {{ end }}
+  ~/.bun/bin/bun add -g{{ range .packages.npm }} {{ .name | quote }}{{ if hasKey . "args" }} {{ .args }}{{ end }}{{ end }}
 else
   echo "Skipping installation: bun not found."
 fi

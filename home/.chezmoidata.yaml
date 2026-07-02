@@ -41,7 +41,9 @@ packages:
     - nomacs.nomacs
     - '9NKSQGP7F2NH'  # WhatsApp
   npm:
-    - opencode-ai
+    - name: opencode-ai
+    - name: '@earendil-works/pi-coding-agent'
+      args: --ignore-scripts
 
 tools:
   shell: zsh
