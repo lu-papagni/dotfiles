@@ -13,6 +13,8 @@ fi
 precmd() {
 	# Correct prompt not blinking
 	printf '\e[?12h\e[?25h\e[5 q'
+	# Pass cwd to new tab
+	printf '\e]9;9;%s\e\\' "$(wslpath -w "$PWD")"
 }
 
 # Cursor style per VI mode
