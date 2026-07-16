@@ -27,6 +27,12 @@ cd:
   command: "pwsh"
   args: ["-NoLogo"]
 
+merge:
+  command: "powershell.exe"
+  args:
+      - "-c"
+      - 'cp {{"{{ .Target }}"}} {{"{{ .Target }}"}}.base; code --new-window --wait --merge {{"{{ .Destination }}"}} {{"{{ .Target }}"}} {{"{{ .Target }}"}}.base {{"{{ .Source }}"}}'
+
 {{ end -}}
 
 data:
